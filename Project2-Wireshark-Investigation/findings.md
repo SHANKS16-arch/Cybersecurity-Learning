@@ -1,67 +1,67 @@
 # Findings
 
-## Capture Details
+## Scan Target
+ 
+- Target: localhost (127.0.0.1)
 
-**Date:** 21 July 2026
+## Open Ports
 
-**Interface Used:** enp0s3
+### Port 631
 
-**Targeted  Website:** https://google.com
+- Protocol: TCP
+- Service: IPP(Internet Printing Protocol)
+- Status: Open
 
+##Observation
 
-## DNS Analysis
+Out of the top 1000 common TCP ports scanned, only port 631 was open.
 
-### DNS Request
+## Security Note
+ Having fewer open ports reduces the attack surface of a system. However, every open service should be monitored and kept updated to avoid known vulnerablilities.
 
-A DNS request was observed when the browser attempted to access the website. The request asked the DNS server to resolve the domain name **googlee.com** into its corresponding IP address.
+## Service Version 
 
- DNS Request Packet: 1
- DNS Response Packet: 2
+- Service: CUPS
+- Version: 2.4
+- Why Version Detection Matters:
 
-### DNS Response
+Knowing the software version helps security professionals determine whether the service has known vulnerabilities (CVEs). If vunlerabilities exist, softwaare should be updated or patched
 
-The DNS server responded with the IP address associated with **google.com**. After receiving the response, the browser was able to identify the destination server and continue the connection process.
+## Vulnerability Research
 
+ Service:
+ CUPS 2.4
 
+ Vulnerability:
+ Some versions of CUPS have authentication bypass vulnerabilites. Whether a specific system is affected depends on its exact version, patches and configuration.
 
-## TCP Three-Way Handshake
+ Mitigation:
+ - Update CUPS to the latest patched version.
+ - Apply operating system security updates.
+ - Restrict access using firewall or network configuration.
+ - Disable the service if it is not requried.
 
-A TCP three-way handshake was observed before any web data was exchanged.
+## Recommendations
 
-The handshake packets consisted of:
+ - Keep CUPS updated with latest security patches.
+ - Disable the printing service if it is not needed.
+ - Regularly monitor open ports and running services.
 
-- SYN: 8
-- SYN-ACK: 10
-- ACK: 11
+## Operating System Detection
 
-This process established a reliable connection between the client and the server and confirmed that both devices were ready to communicate.
+- Operating System: Linux (detected by Nmap)
+- Why OS detection Matters:
 
----
-
-## TLS Handshake
-
-After the TCP connection was established, a TLS handshake was performed.
-
-The purpose of the TLS handshake was to establish a secure encrypted connection between the client and the server. TLS also verifies the identity of the server using digital certificates before encrypted communication begins.
-
-
- First TLS Packet: 12
- TLS Version Observed: TLS 1.2
-
-## Communication Flow
-
-The communication process occurred in the following order:
-
-1. The user entered **https://google.com** in the browser.
-2. The browser sent a DNS request to obtain the IP address of the website.
-3. The DNS server returned the corresponding IP address.
-4. A TCP three-way handshake established a reliable connection.
-5. A TLS handshake created a secure encrypted connection.
-6. HTTPS was used to securely exchange data.
-7. The webpage was successfully displayed in the browser.
-
+Operating system detection helps security analysts to understand the target environment. Attackers  may search for OS-specific vulnerabilities,while defenders use this information to verify systems and ensure they are properly secured.
 
 
 ## Conclusion
 
-This investigation demonstrated the complete process of establishing a secure web connection. DNS resolved the domain name into an IP address, TCP established a reliable connection, TLS encrypted the communication, and HTTPS securely transferred the webpage data. Capturing these packets using Wireshark provided a practical understanding of how browsers communicate securely with web servers.
+ This project demonstrated how to perform basic network reconnassiance on a linux system using Nmap. The scan identified an open printingg sercive (CUPS), examined its version, and explored why service identification and vulnerability research are important in cybersecurit. This project also emphasized the importance of reducing the attack surface by disabling unnecessary services and keeping software updated.
+
+
+## References
+
+ 1. Nmap Documentation (man nmap)
+ 2. OpenPrinting Cups Documentaion
+ 3. MITRE CVE Database
