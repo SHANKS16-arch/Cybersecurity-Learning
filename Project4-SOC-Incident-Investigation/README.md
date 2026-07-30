@@ -22,6 +22,15 @@ Learn how to investigate security incidents using evidence, logs, and analytical
 - Root cause analysis
 - SOC analyst decision making
 
-## Status
+## Evidence
 
-🟡 In Progress
+This project includes real screenshots captured from my Ubuntu Linux virtual machine while practicing Linux log analysis.
+
+### Screenshots Included
+
+* `journalctl.png` – Recent system journal entries
+* `journalctl-sudo.png` – Sudo activity from the system journal
+* `dmesg.png` – Recent Linux kernel messages
+
+These screenshots demonstrate hands-on practice using Linux log investigation tools such as `journalctl` and `dmesg`.
+
